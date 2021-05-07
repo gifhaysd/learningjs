@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript example</title>
+  </head>
+
+  <body>
+    <p>This example requires you to enter commands in your browser's JavaScript console (see <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools"> What are browser developer tools</a> for more information).</p>
+
+  </body>
+
+    <script>
+        class Person {
+          constructor(first, last, age, gender, interests) {
+            this.name = {
+              first,
+              last
+            };
+            this.age = age;
+            this.gender = gender;
+            this.interests = interests;
+          }
+
+          greeting() {
+            console.log(`Hi! I'm ${this.name.first}`);
+          };
+
+          farewell() {
+            console.log(`${this.name.first} has left the building. Bye for now!`);
+          };
+        }
+      class Teacher extends Person {
+        constructor(subject) {
+          super();
+          this.subject = subject;
+        }
+      }
+      
+      function Shape(name, sides, sideLength) {
+        this.name = name;
+        this.sides = sides;
+        this.sideLength = sideLength;
+        this.calcPerimeter = function() {
+          return this.sideLength * this.sides;
+        }
+      }
+      function Square(name, sides, sideLength) {
+        Shape.call(this, name, sides, sideLength);
+        Square.prototype = Object.create(Shape.prototype);
+        this.calcArea = function(){
+          return this.sideLength *this.sideLength;
+        }
+      }
+      // Write your code below here
+
+      Shape.prototype.calcPerimeter = function() {
+        return this.sideLength * this.sides;
+      }
+
+      let square = new Shape("square", 4, 5);
+
+      
+    </script>
+</html>

@@ -1,0 +1,29 @@
+h1 {
+  text-align: center;
+  color: #6441a5;
+}
+img {
+  width: 170px;
+}
+.foodLi {
+  color: firebrick;
+}
+.cokeLi {
+  color: green;
+}
+#cheesePic {
+  text-align: center;
+}
+table tr th {
+  color: darkgreen;
+}
+.drinkSection {
+  background-color: rgb(100,200,200);
+  border-top-style: solid;
+}
+.foodSection {
+  background-color: #F2CE8B;
+}
+.entireThing {
+  background-color: lightsteelblue;
+}

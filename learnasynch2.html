@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test animating</title>
+        <link rel = "stylesheet" href = "learnasynch.css">
+    </head>
+    <body>
+        <div>
+            ↻
+        </div>
+        <script>
+            const body = document.querySelector("body");
+            body.addEventListener("click", reSpin);
+
+            function reSpin(){
+                if(rAF) {
+                    rAF = cancelAnimationFrame(rAF);
+                   
+                } else {
+                    console.log("Starter back up");
+                    draw();
+                }
+            }
+
+
+
+
+            const spinner = document.querySelector('div');
+            let rotateCount = 0;
+            let startTime = null;
+            let rAF;
+
+            function draw(timestamp){
+                if(!startTime){
+                    startTime = timestamp;
+                }
+
+                rotateCount = (timestamp - startTime)/3;
+                rotateCount = rotateCount % 360;
+
+                spinner.style.transform = `rotate(${rotateCount}deg)`;
+
+                rAF = requestAnimationFrame(draw);
+            }
+
+            draw();
+
+        </script>
+    </body>
+</html>

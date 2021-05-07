@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Reaction game</title>
+        <link rel = "stylesheet" href = "learnasynch3.css">
+    </head>
+    <body>
+        <div class = "spinner">
+            ↻
+        </div>
+        <div id = "player1" class ="player">
+            Player one presses q
+        </div>
+        <div id = "player2" class = "player">
+            Player two presses p
+        </div>
+
+        <script>
+            const spinner = document.querySelector('div');
+            let rotateCount = 0;
+            let startTime = null;
+            let rAF;
+            const body = document.querySelector("body");
+            var timerSetting;
+            var timer;
+            var reactTime = false;
+            var alerting = false;
+            body.addEventListener("keydown", react);
+
+
+            function setTimer(){
+                timer = 2+ Math.random()*(2);
+                body.style.backgroundColor = "lightcoral";
+                spinner.textContent = "↻"
+                reactTime = false;
+                alerting = false;
+            }
+
+            function incTimer(){
+                timer -= 0.01;
+                if(timer<=0){
+                    reactTime = true;
+                    body.style.backgroundColor = "lightgreen";
+                    spinner.textContent = "GO!";
+                    spinner.style.transform = "none";
+                    rAF = cancelAnimationFrame(rAF);
+                    clearInterval(timerSetting);
+                }
+            }
+
+            function draw(timestamp){
+                if(!startTime){
+                    startTime = timestamp;
+                }
+
+                rotateCount = (timestamp - startTime)/3;
+                rotateCount = rotateCount % 360;
+
+                spinner.style.transform = `rotate(${rotateCount}deg)`;
+
+                rAF = requestAnimationFrame(draw);
+            }
+            
+            function react(e){
+                let player;
+                if(e.key==="p") player = 2;
+                if(e.key==="q") player = 1;
+                if(!reactTime && !alerting){
+                    alerting = true;
+                    spinner.textContent = "Too early, player " + player+ "!";
+                    rAF = cancelAnimationFrame(rAF);
+                    spinner.style.transform = "none";
+                    timer = 10;
+                    setTimeout(function(){
+                        draw(); 
+                        setTimer();
+                        timerSetting = setInterval(incTimer, 10);
+                    }, 1000)
+                }
+
+                if(reactTime){
+                    spinner.textContent = "You win, player " + player+ "!";
+                    rAF = cancelAnimationFrame(rAF);
+                    spinner.style.transform = "none";
+                    timer = 10;
+                    setTimeout(function(){
+                        setTimer();
+                        timerSetting = setInterval(incTimer, 10);
+                        draw(); 
+                    }, 1000)
+                }
+            }
+
+            function react2(e){
+
+                if(e.key==="p"){
+                    if(!reactTime){
+                        spinner.textContent = "Too early, player 1!";
+                        rAF = cancelAnimationFrame(rAF);
+                        spinner.style.transform = "none";
+                        setTimeout(function(){
+                            spinner.textContent = "↻"
+                            draw(); 
+                            setTimer();
+                        }, 1000)
+                    }
+                    if(reactTime){
+                        reactTime = false;
+                        spinner.textContent = "You win, player 1!";
+                        rAF = cancelAnimationFrame(rAF);
+                        spinner.style.transform = "none";
+                        setTimeout(function(){
+                            spinner.textContent = "↻"
+                            
+                            setTimer();
+                            draw(); 
+                        }, 1000)
+                    }
+                }
+                if(e.key==="q"){
+                    if(!reactTime){
+                        spinner.textContent = "Too early, player 2!";
+                        rAF = cancelAnimationFrame(rAF);
+                        spinner.style.transform = "none";
+                        setTimeout(function(){
+                            spinner.textContent = "↻"
+                            setTimer();
+                            draw(); 
+                        }, 1000)
+                    }
+                    if(reactTime){
+                        reactTime = false;
+                        spinner.textContent = "You win, player 2!";
+                        rAF = cancelAnimationFrame(rAF);
+                        spinner.style.transform = "none";
+                        setTimeout(function(){
+                            spinner.textContent = "↻"
+                            setTimer();
+                            draw(); 
+                        },1000)
+                    }
+                }
+
+                
+            }
+            
+            setTimer();
+            timerSetting = setInterval(incTimer, 10);
+            draw();
+
+        </script>
+    </body>
+</html>

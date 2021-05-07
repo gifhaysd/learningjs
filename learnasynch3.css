@@ -1,0 +1,28 @@
+.spinner{
+    font-size: 10rem;
+    text-align: center;
+}
+
+body{
+    background-color: lightcoral;
+    font-size: 2rem;
+    overflow: hidden;
+}
+
+#player1 {
+    position: absolute;
+    top: 8rem;
+    left: 3rem;
+}
+#player2 {
+    position: absolute;
+    top: 8rem;
+    right: 3rem;
+}
+
+.player {
+    border: 3px;
+    border-style: solid;
+    border-color: black;
+    background-color: lightgreen;
+}

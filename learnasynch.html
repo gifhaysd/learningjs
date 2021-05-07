@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple synchronous JavaScript example</title>
+  </head>
+  <body>
+    <button>Click me</button>
+    <script>
+      console.log("before timer");
+      var x = setInterval(tester, 1000, "blue");
+      console.log("all the way after.");
+
+      function tester(col){
+        console.log("activates after 1 second timer. Favorite color is " + col)
+      }
+      clearTimeout(2);
+
+      function testee(){
+        console.log(x);
+      }
+      var y = setTimeout(testee, 1000);
+    </script>
+  </body>
+</html>
